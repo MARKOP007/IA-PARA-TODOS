@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IA PARA TODOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --primario: #007aff; --fondo: #f2f2f7; --tarjeta: #ffffff; --texto: #1c1c1e; --gris: #8e8e93; }
+  
+  /* Ajuste para que en el celular se vea perfecto */
+  body { font-family: 'Lexend', sans-serif; background-color: var(--fondo); color: var(--texto); margin: 0; padding: 15px; padding-bottom: 220px; }
+  
+  .contenedor { max-width: 500px; margin: 0 auto; background: var(--tarjeta); border-radius: 24px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  
+  header { text-align: center; margin-bottom: 20px; }
+  h1 { font-size: 1.6rem; color: var(--primario); margin: 0; }
+  .intro { font-size: 0.9rem; color: var(--gris); margin-top: 5px; }
+
+  .campo { margin-bottom: 18px; }
+  label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 1rem; color: var(--primario); }
+  .ayuda { font-size: 0.85rem; color: var(--gris); margin-bottom: 8px; display: block; line-height: 1.2; }
+  
+  /* Textareas más fáciles de tocar */
+  textarea { width: 100%; border: 2px solid #e5e5ea; border-radius: 14px; padding: 12px; font-family: inherit; font-size: 16px; /* 16px evita el zoom automático en iPhone */ box-sizing: border-box; resize: none; background: #fafafa; }
+  
+  /* Botones grandes para dedos */
+  .botones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-modo { background: #fff; border: 2px solid #e5e5ea; padding: 15px 10px; border-radius: 16px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 0.85rem; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+  .btn-modo.activo { background: var(--primario); color: #fff; border-color: var(--primario); }
+
+  /* Panel inferior fijo para que el botón de copiar siempre esté a mano */
+  .fijo-inferior { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 15px; border-top: 2px solid var(--fondo); box-shadow: 0 -5px 20px rgba(0,0,0,0.1); text-align: center; z-index: 100; }
+  
+  #temp { display: none; }
+  
+  .btn-final { background: #34c759; color: white; border: none; padding: 18px; border-radius: 50px; font-size: 1.2rem; font-weight: 700; cursor: pointer; width: 100%; max-width: 400px; box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4); }
+  
+  .firma { font-size: 0.7rem; color: var(--gris); margin-top: 10px; line-height: 1.2; }
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+  <header>
+    <h1>✨ IA PARA TODOS</h1>
+    <p class="intro">Tu asistente fácil y personal.</p>
+  </header>
+
+  <div class="campo">
+    <label>1. ¿Quién quieres que te ayude?</label>
+    <span class="ayuda">Ej: Un profesor, un cocinero o un abogado amable.</span>
+    <textarea id="p1" rows="2" placeholder="Escribe aquí..."></textarea>
+  </div>
+
+  <div class="campo">
+    <label>2. ¿En qué te ayudo hoy?</label>
+    <span class="ayuda">Dime tu duda o la tarea que tienes que hacer.</span>
+    <textarea id="p2" rows="4" placeholder="Cuéntame con tus palabras..."></textarea>
+  </div>
+
+  <div class="campo">
+    <label>3. ¿Cómo prefieres la respuesta?</label>
+    <div class="botones">
+      <button class="btn-modo" onclick="m(this, 'Lenguaje muy sencillo')">🐥 Muy fácil</button>
+      <button class="btn-modo" onclick="m(this, 'Paso a paso')">🪜 Paso a paso</button>
+      <button class="btn-modo" onclick="m(this, 'Resumen corto')">⏱️ Cortito</button>
+      <button class="btn-modo" onclick="m(this, 'Como un cuento')">📖 Como cuento</button>
+    </div>
+  </div>
+</div>
+
+<div class="fijo-inferior">
+  <textarea id="temp" readonly></textarea>
+  <button class="btn-final" onclick="cop()">✅ ¡LISTO! COPIAR</button>
+  <div class="firma">Creado por <b>Marco Antonio Porras León</b> 💙<br>© 2026 Reservados todos los derechos.</div>
+</div>
+
+<script>
+let _s=[];function m(b,v){b.classList.toggle('activo');if(_s.includes(v)){_s=_s.filter(x=>x!==v)}else{_s.push(v)}a()}function a(){let r='';const v1=document.getElementById('p1').value;const v2=document.getElementById('p2').value;if(v1)r+=`Actúa como: ${v1}\n\n`;if(v2)r+=`Mi duda o tarea es: ${v2}\n\n`;if(_s.length>0)r+=`Estilo: ${_s.join(', ')}\n\n`;document.getElementById('temp').value=r}document.querySelectorAll('textarea').forEach(t=>t.addEventListener('input',a));function cop(){const x=document.getElementById('temp').value;if(!x){alert("Escribe algo arriba primero");return}navigator.clipboard.writeText(x);alert("¡Ya está guardado!\n\nAhora abre ChatGPT o tu IA y elige 'Pegar'.\n\n- Marco Porras.");}
+</script>
+
+</body>
+</html>
